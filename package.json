@@ -1,0 +1,37 @@
+{
+  "name": "popit",
+  "version": "1.0.0",
+  "description": "Simple search and listing page of movies",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "prettier": "prettier -write",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnitIgris/popit.git"
+  },
+  "keywords": [],
+  "author": "lunion.sam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UnitIgris/popit/issues"
+  },
+  "homepage": "https://github.com/UnitIgris/popit#readme",
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.12",
+    "@chakra-ui/react": "^2.4.1",
+    "framer-motion": "^7.6.7",
+    "next": "^12.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "eslint-config-next": "^13.0.4",
+    "prettier": "^2.7.1"
+  }
+}
