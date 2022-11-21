@@ -10,12 +10,12 @@ import {
   CardBody,
   Stack,
 } from '@chakra-ui/react'
-import Cards from '../components/Card'
+import Cards from '../libs/components/Card'
 
-function Page() {
+function List() {
   const API_KEY = '&api_key=714cf0bd7594d949a81e6a43d09bdc9d'
-  const BASE_URL = 'https://api.themoviedb.org/3/'
-  const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc' + API_KEY
+  const BASE_URL = 'https://api.themoviedb.org/3/discover/movie?'
+  const API_URL = BASE_URL + 'sort_by=popularity.desc' + API_KEY
 
   const [movieList, setMovieList] = useState([])
 
@@ -26,7 +26,7 @@ function Page() {
       .then((res) => res.json())
       .then((data) => {
         setMovieList(data.results)
-        //console.log(data.results)
+        
       })
   }
 
@@ -98,7 +98,7 @@ function Page() {
               <Text>Not found</Text>
             ) : (
               movieList.map((res, index) => (
-                 <Cards info={res} key={index} />
+                <Cards info={res} key={index}></Cards>
               ))
             )}
           </Box>
@@ -107,4 +107,4 @@ function Page() {
     </Box>
   )
 }
-export default Page
+export default List
