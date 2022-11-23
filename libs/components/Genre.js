@@ -1,19 +1,8 @@
-import {
-  Heading,
-  Image,
-  Card,
-  Text,
-  CardBody,
-  Stack,
-  Box,Link,
-  Button,
-} from '@chakra-ui/react'
+import { Text, Box, Link } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
-
-const Genre = ({ handleGenreID }) => {
+function Genre({ handleGenreID }) {
   const [genreList, setGenreList] = useState([])
-
   const genre =
     'https://api.themoviedb.org/3/genre/movie/list?api_key=714cf0bd7594d949a81e6a43d09bdc9d&language=en-US'
 
@@ -27,16 +16,16 @@ const Genre = ({ handleGenreID }) => {
       })
   }
   return (
-    <Box minW="15rem" role="group">
+    <Box minW="15rem">
       {genreList.length == undefined ? (
         <Text>Not found</Text>
       ) : (
-        genreList.map((res, index) => (
-          <Box  key={index}>
+        genreList.map((res,index) => (
+          <Box key={index}>
             <Link
               onClick={() => handleGenreID(res.id)}
-              _hover={{ textDecorationStyle: 'none', border: '1px solid' }}
-              borderRadius="2rem"
+              _hover={{ textDecorationStyle: 'none', bg: 'blackAlpha.400' }}
+              padding="0.2rem"
               fontSize="lg"
               bg="blackAlpha.100"
               display="block"

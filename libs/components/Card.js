@@ -1,52 +1,58 @@
-import {
-  Heading,
-  Image,
-  Card,
-  Text,
-  CardBody,
-  Stack,
-  Link,
-  Button,
-} from '@chakra-ui/react'
+import { Heading, Image, Card, Stack, Link } from '@chakra-ui/react'
 import React from 'react'
 
-const Cards = (movie) => {
-  //console.log(movie)
-  const NO_POSTER= "https://www.linkpicture.com/q/no_thumbnail.jpg"
+function Cards(movie) {
+  const NO_POSTER = 'https://www.linkpicture.com/q/no_thumbnail.jpg'
   const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
+  const styledStack = {
+    borderRadius: 'lg',
+    spacing: '3',
+    position: 'absolute',
+    width: '100%',
+    bottom: ' 0',
+    left: '0',
+    fontWeight: '300',
+    padding: '30px 0',
+    background: 'linear-gradient(to top, rgba(0, 0, 0, 1 ),transparent )',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+
+    transition: '.5s',
+    color: 'whiteAlpha.900',
+    fontSize: '2xl',
+  }
+
   return (
     <Card maxW="sm" role="group">
       <Link href={`/movie/${movie.info.id}`}>
         <Image
           boxShadow=" 0 15px 35px 0 "
-          src={movie.info.poster_path ?IMG_BASE + movie.info.poster_path : NO_POSTER}
+          src={
+            movie.info.poster_path
+              ? IMG_BASE + movie.info.poster_path
+              : NO_POSTER
+          }
           alt={movie.info.title}
           borderRadius="lg"
         />
-        <Stack
-          borderRadius="lg"
-          spacing="3"
-          position="absolute"
-          width="100%"
-          bottom=" 0"
-          left="0"
-          fontWeight="300"
-          padding="30px 0"
-          background="linear-gradient(to top, rgba(0, 0, 0, 1 ),transparent )"
-          textTransform="uppercase"
-          textAlign="center"
-          opacity="0"
-          transition=".5s"
-          color="whiteAlpha.900"
-          fontSize="2xl"
-          _groupHover={{
-            paddingBottom: '50px',
-            opacity: '1',
-            transition: '.5s;',
-          }}
-        >
-          <Heading size="md">{movie.info.title}</Heading>
-        </Stack>
+
+        {movie.info.poster_path ? (
+          <Stack
+            opacity="0"
+            sx={styledStack}
+            _groupHover={{
+              paddingBottom: '50px',
+              opacity: '1',
+              transition: '.5s;',
+            }}
+          >
+            <Heading size="md">{movie.info.title}</Heading>
+          </Stack>
+        ) : (
+          <Stack sx={styledStack} opacity="1">
+            <Heading size="md">{movie.info.title}</Heading>
+          </Stack>
+        )}
       </Link>
     </Card>
   )
