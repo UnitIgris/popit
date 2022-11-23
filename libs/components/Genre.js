@@ -34,7 +34,7 @@ const Genre = ({ handleGenreID }) => {
         genreList.map((res, index) => (
           <Box  key={index}>
             <Link
-              onClick={() => handleGenreID(res.name)}
+              onClick={() => handleGenreID(res.id)}
               _hover={{ textDecorationStyle: 'none', border: '1px solid' }}
               borderRadius="2rem"
               fontSize="lg"

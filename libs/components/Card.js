@@ -12,13 +12,14 @@ import React from 'react'
 
 const Cards = (movie) => {
   //console.log(movie)
+  const NO_POSTER= "https://www.linkpicture.com/q/no_thumbnail.jpg"
   const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
   return (
     <Card maxW="sm" role="group">
       <Link href={`/movie/${movie.info.id}`}>
         <Image
           boxShadow=" 0 15px 35px 0 "
-          src={IMG_BASE + movie.info.poster_path}
+          src={movie.info.poster_path ?IMG_BASE + movie.info.poster_path : NO_POSTER}
           alt={movie.info.title}
           borderRadius="lg"
         />

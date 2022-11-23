@@ -28,14 +28,15 @@ function List() {
   function handleGenreID(searchGenre) {
     setsearchGenre(searchGenre)
     const API_URL =
-      BASE_URL + 'search/movie?' + API_KEY + '&query=' + searchGenre
-    setUrl(API_URL)
+      BASE_URL + 'discover/movie?' + API_KEY + '&with_genres=' + searchGenre
+      setUrl(API_URL)
   }
   useEffect(() => {
     fetch(url_set)
       .then((res) => res.json())
       .then((data) => {
         setMovieList(data.results)
+        console.log(data.results)
       })
   }, [url_set])
 
@@ -77,6 +78,7 @@ function List() {
         >
           <Genre handleGenreID={handleGenreID} />
         </Box>
+        
       </Box>
       <Box>
         <Input
