@@ -9,16 +9,32 @@ import {
   Heading,
   CardBody,
   Stack,
+  InputGroup,
+  InputRightElement,
+  Icon,
 } from '@chakra-ui/react'
 import Cards from '../libs/components/Card'
+import { Search2Icon } from '@chakra-ui/icons'
+import Genre from '../libs/components/Genre'
 
 function List() {
   const API_KEY = '&api_key=714cf0bd7594d949a81e6a43d09bdc9d'
   const BASE_URL = 'https://api.themoviedb.org/3/discover/movie?'
   const API_URL = BASE_URL + 'sort_by=popularity.desc' + API_KEY
+  const searchurl =
+    'https://api.themoviedb.org/3/search/multi?' + API_KEY + '&query='
 
   const [movieList, setMovieList] = useState([])
+  const [movieSearch, setMovieSearch] = useState('')
+  const [searchGenre, setsearchGenre] = useState('')
 
+  function handleGenreID(searchGenre) {
+    setsearchGenre(searchGenre)
+    search(searchurl+ searchGenre)
+    console.log('genre', searchGenre)
+    console.log('url', searchurl)
+  }
+ 
   getMovies(API_URL)
 
   function getMovies(url) {
@@ -26,7 +42,22 @@ function List() {
       .then((res) => res.json())
       .then((data) => {
         setMovieList(data.results)
-        
+      }) 
+  }
+
+  function checkSubmit(e) {
+    if (e && e.key == 'Enter') {
+      setMovieSearch(e.target.value)
+      //
+      return false
+    }
+  }
+
+  function search(moviename) {
+    fetch(moviename)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('searching', searchurl)
       })
   }
 
@@ -48,7 +79,7 @@ function List() {
         mt="4rem"
         color="black"
       >
-        sidebar
+        Genre
         <Box
           display="flex"
           flex-direction="column"
@@ -58,20 +89,25 @@ function List() {
           color="dark"
           borderRight="1px solid black"
         >
-          sidebar-container
+          <Genre handleGenreID={handleGenreID} />
         </Box>
       </Box>
       <Box>
         <Input
-          placeholder="search"
           top="0"
           right="0"
-          bg="black"
           position="absolute"
           display="flex"
+          borderRadius="10rem"
           alignItems="center"
           justifyContent="center"
+          variant="custom"
+          placeholder="search"
+          outline="none"
+          bg="black"
           w="12rem"
+          color="whiteAlpha.900"
+          onKeyPress={(e) => checkSubmit(e)}
         />
       </Box>
       <Box

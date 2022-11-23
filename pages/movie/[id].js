@@ -12,8 +12,13 @@ import {
 } from '@chakra-ui/react'
 
 function Movieid() {
-  const [movieInfo, setMovieInfo] = useState()
+  const [movieInfo, setMovieInfo] = useState(null)
   const [movieID, setMovieID] = useState('')
+  const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
+  const URL_INFO =
+    'https://api.themoviedb.org/3/movie/' +
+    movieID +
+    '?api_key=714cf0bd7594d949a81e6a43d09bdc9d'
 
   function getId() {
     if (typeof window !== 'undefined') {
@@ -22,40 +27,29 @@ function Movieid() {
       setMovieID(id)
     }
   }
-  const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
-  const URL_INFO =
-    'https://api.themoviedb.org/3/movie/' +
-    movieID +
-    '?api_key=714cf0bd7594d949a81e6a43d09bdc9d'
 
-  
-
-
+  useEffect(() => {
+    if (movieID) { 
+      getSingleMovie(URL_INFO)
+    }
+  })
   useEffect(() => {
     getId()
   })
-  
-  useEffect(() => {
-    URL_INFO
-    
-  }, [URL_INFO]);
-  if(movieID){ 
-    
-    getSingleMovie(URL_INFO)
-  }
 
   function getSingleMovie(url) {
-    
-          fetch(url)  
-        .then((res) => res.json())
-        .then((data) => {
-          setMovieInfo(data)
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieInfo(data)
+        console.log('movie', data)
+        
+      })
+  }
 
-          console.log('movie', movieInfo)
-        })
-    }
-  
-
+  if (movieInfo == null) {
+    return <p>Loading movie's data...</p>
+  }
   return (
     <Box
       minH="100vh"
@@ -75,8 +69,7 @@ function Movieid() {
           maxW="120rem"
           margin="0px auto 0px"
         >
-          {movieID}  
-          
+          {movieID} {movieInfo.title}
         </Box>
       </Box>
     </Box>
