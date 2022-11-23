@@ -28,22 +28,33 @@ function Movieid() {
     movieID +
     '?api_key=714cf0bd7594d949a81e6a43d09bdc9d'
 
+  
+
 
   useEffect(() => {
-    getSingleMovie(URL_INFO)
     getId()
-  },)
+  })
   
-  getSingleMovie(URL_INFO)
+  useEffect(() => {
+    URL_INFO
+    
+  }, [URL_INFO]);
+  if(movieID){ 
+    
+    getSingleMovie(URL_INFO)
+  }
 
   function getSingleMovie(url) {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovieInfo(data)
-        console.log('movie', movieInfo)
-      })
-  }
+    
+          fetch(url)  
+        .then((res) => res.json())
+        .then((data) => {
+          setMovieInfo(data)
+
+          console.log('movie', movieInfo)
+        })
+    }
+  
 
   return (
     <Box
@@ -63,7 +74,10 @@ function Movieid() {
           w="100%"
           maxW="120rem"
           margin="0px auto 0px"
-        ></Box>
+        >
+          {movieID}  
+          
+        </Box>
       </Box>
     </Box>
   )
