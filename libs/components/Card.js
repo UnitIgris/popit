@@ -14,14 +14,16 @@ const Cards = (movie) => {
   //console.log(movie)
   const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
   return (
-    <Card  maxW="sm" role="group">
+    <Card maxW="sm" role="group">
       <Link href={`/movie/${movie.info.id}`}>
-        <Image boxShadow=" 0 15px 35px 0 "
+        <Image
+          boxShadow=" 0 15px 35px 0 "
           src={IMG_BASE + movie.info.poster_path}
           alt={movie.info.title}
           borderRadius="lg"
         />
         <Stack
+          borderRadius="lg"
           spacing="3"
           position="absolute"
           width="100%"
@@ -40,15 +42,10 @@ const Cards = (movie) => {
             paddingBottom: '50px',
             opacity: '1',
             transition: '.5s;',
-            
           }}
         >
           <Heading size="md">{movie.info.title}</Heading>
-          
-          
-          
         </Stack>
-     
       </Link>
     </Card>
   )

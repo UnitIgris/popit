@@ -22,15 +22,15 @@ function List() {
   const API_URL = BASE_URL + 'discover/movie?sort_by=popularity.desc' + API_KEY
   const [movieList, setMovieList] = useState([])
   const [movieSearch, setMovieSearch] = useState('')
-  // const [searchGenre, setsearchGenre] = useState('')
+  const [searchGenre, setsearchGenre] = useState('')
   const [url_set, setUrl] = useState(API_URL)
 
-  // function handleGenreID(searchGenre) {
-  //   setsearchGenre(searchGenre)
-  //   search(searchurl + searchGenre)
-  //   console.log('genre', searchGenre)
-  //   console.log('url', searchurl)
-  // }
+  function handleGenreID(searchGenre) {
+    setsearchGenre(searchGenre)
+    const API_URL =
+      BASE_URL + 'search/movie?' + API_KEY + '&query=' + searchGenre
+    setUrl(API_URL)
+  }
   useEffect(() => {
     fetch(url_set)
       .then((res) => res.json())
@@ -46,14 +46,6 @@ function List() {
       setUrl(API_URL)
     }
   }
-
-  // function search(moviename) {
-  //   fetch(moviename)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log('searching', searchurl)
-  //     })
-  // }
 
   return (
     <Box
@@ -83,7 +75,7 @@ function List() {
           color="dark"
           borderRight="1px solid black"
         >
-          {/* <Genre handleGenreID={handleGenreID} /> */}
+          <Genre handleGenreID={handleGenreID} />
         </Box>
       </Box>
       <Box>
@@ -96,16 +88,24 @@ function List() {
           alignItems="center"
           justifyContent="center"
           variant="custom"
-          placeholder="search"
+          placeholder="Search"
           outline="none"
           bg="black"
-          w="12rem"
+          w="5rem"
+          boxShadow="0 4px 8px black"
+          margin="1.5rem"
           color="whiteAlpha.900"
+          transition="all 300ms cubic-bezier(0.645, 0.045, 0.355, 1)"
           onChange={(e) => {
             setMovieSearch(e.target.value)
           }}
           value={movieSearch}
           onKeyPress={checkSubmit}
+          _hover={{
+            width: '30rem',
+            transition: 'all 300ms cubic-bezier(0.645, 0.045, 0.355, 1) 0s',
+          }}
+          _focus={{ width: '30rem' }}
         />
       </Box>
       <Box
