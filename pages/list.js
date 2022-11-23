@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Box,
   Input,
@@ -14,52 +14,46 @@ import {
   Icon,
 } from '@chakra-ui/react'
 import Cards from '../libs/components/Card'
-import { Search2Icon } from '@chakra-ui/icons'
 import Genre from '../libs/components/Genre'
 
 function List() {
   const API_KEY = '&api_key=714cf0bd7594d949a81e6a43d09bdc9d'
-  const BASE_URL = 'https://api.themoviedb.org/3/discover/movie?'
-  const API_URL = BASE_URL + 'sort_by=popularity.desc' + API_KEY
-  const searchurl =
-    'https://api.themoviedb.org/3/search/multi?' + API_KEY + '&query='
-
+  const BASE_URL = 'https://api.themoviedb.org/3/'
+  const API_URL = BASE_URL + 'discover/movie?sort_by=popularity.desc' + API_KEY
   const [movieList, setMovieList] = useState([])
   const [movieSearch, setMovieSearch] = useState('')
-  const [searchGenre, setsearchGenre] = useState('')
+  // const [searchGenre, setsearchGenre] = useState('')
+  const [url_set, setUrl] = useState(API_URL)
 
-  function handleGenreID(searchGenre) {
-    setsearchGenre(searchGenre)
-    search(searchurl+ searchGenre)
-    console.log('genre', searchGenre)
-    console.log('url', searchurl)
-  }
- 
-  getMovies(API_URL)
-
-  function getMovies(url) {
-    fetch(url)
+  // function handleGenreID(searchGenre) {
+  //   setsearchGenre(searchGenre)
+  //   search(searchurl + searchGenre)
+  //   console.log('genre', searchGenre)
+  //   console.log('url', searchurl)
+  // }
+  useEffect(() => {
+    fetch(url_set)
       .then((res) => res.json())
       .then((data) => {
         setMovieList(data.results)
-      }) 
-  }
+      })
+  }, [url_set])
 
-  function checkSubmit(e) {
+  const checkSubmit = (e) => {
     if (e && e.key == 'Enter') {
-      setMovieSearch(e.target.value)
-      //
-      return false
+      const API_URL =
+        BASE_URL + 'search/movie?' + API_KEY + '&query=' + movieSearch
+      setUrl(API_URL)
     }
   }
 
-  function search(moviename) {
-    fetch(moviename)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('searching', searchurl)
-      })
-  }
+  // function search(moviename) {
+  //   fetch(moviename)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log('searching', searchurl)
+  //     })
+  // }
 
   return (
     <Box
@@ -89,7 +83,7 @@ function List() {
           color="dark"
           borderRight="1px solid black"
         >
-          <Genre handleGenreID={handleGenreID} />
+          {/* <Genre handleGenreID={handleGenreID} /> */}
         </Box>
       </Box>
       <Box>
@@ -107,7 +101,11 @@ function List() {
           bg="black"
           w="12rem"
           color="whiteAlpha.900"
-          onKeyPress={(e) => checkSubmit(e)}
+          onChange={(e) => {
+            setMovieSearch(e.target.value)
+          }}
+          value={movieSearch}
+          onKeyPress={checkSubmit}
         />
       </Box>
       <Box
