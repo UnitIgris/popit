@@ -15,6 +15,9 @@ function Genre({ handleGenreID }) {
         setGenreList(data.genres)
       })
   }
+
+
+
   return (
     <Box minW="15rem">
       {genreList.length == undefined ? (
@@ -24,10 +27,10 @@ function Genre({ handleGenreID }) {
           <Box key={index}>
             <Link
               onClick={() => handleGenreID(res.id)}
-              _hover={{ textDecorationStyle: 'none', bg: 'blackAlpha.400' }}
+              _hover={{ textDecorationStyle: 'none', bg: 'blackAlpha.600' }}
               padding="0.2rem"
               fontSize="lg"
-              bg="blackAlpha.100"
+              bg="blackAlpha.300"
               display="block"
               outline="none"
               w="80%"

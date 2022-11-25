@@ -13,8 +13,8 @@ import {
   InputRightElement,
   Icon,
 } from '@chakra-ui/react'
-import Cards from '../libs/components/Card'
-import Genre from '../libs/components/Genre'
+import Cards from '../../libs/components/Card'
+import Genre from '../../libs/components/Genre'
 
 function List() {
   const API_KEY = '&api_key=714cf0bd7594d949a81e6a43d09bdc9d'
@@ -60,6 +60,7 @@ function List() {
 
   return (
     <Box
+    bg="white"
       display="flex"
       flexDirection="row"
       position="relative"
@@ -126,8 +127,8 @@ function List() {
         alignItems="center"
         justifyContent="center"
       >
-        <Box display="flex" w="100%" flexDirection="column">
-          <Box>{actualTitle}</Box>
+        <Box  margin="1.5rem" display="flex" w="100%" flexDirection="column">
+          <Heading>{actualTitle.toUpperCase()}</Heading>
           <Box
             display="grid"
             gridTemplateColumns="repeat(auto-fit, minmax(10rem, 25rem))"

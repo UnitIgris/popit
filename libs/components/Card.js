@@ -3,12 +3,13 @@ import React from 'react'
 
 function Cards(movie) {
   const NO_POSTER = 'https://www.linkpicture.com/q/no_thumbnail.jpg'
-  const IMG_BASE = 'https://image.tmdb.org/t/p/w1280'
+  const IMG_BASE = 'https://image.tmdb.org/t/p/original'
   const styledStack = {
     borderRadius: 'lg',
     spacing: '3',
     position: 'absolute',
     width: '100%',
+
     bottom: ' 0',
     left: '0',
     fontWeight: '300',
@@ -16,14 +17,22 @@ function Cards(movie) {
     background: 'linear-gradient(to top, rgba(0, 0, 0, 1 ),transparent )',
     textTransform: 'uppercase',
     textAlign: 'center',
-
     transition: '.5s',
+
     color: 'whiteAlpha.900',
     fontSize: '2xl',
   }
 
   return (
-    <Card maxW="sm" role="group">
+    <Card
+      transition=".5s"
+      maxW="sm"
+      _hover={{
+        transform: 'scale(1.05)',
+        transition: '.5s',
+      }}
+      role="group"
+    >
       <Link href={`/movie/${movie.info.id}`}>
         <Image
           boxShadow=" 0 15px 35px 0 "
