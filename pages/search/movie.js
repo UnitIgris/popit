@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import Cards from '../../libs/components/Card'
 import Genre from '../../libs/components/Genre'
+import useFetchData from '../../libs/hook/useFetchData'
 
 function List() {
   const API_KEY = '&api_key=714cf0bd7594d949a81e6a43d09bdc9d'
@@ -25,12 +26,16 @@ function List() {
   const [searchGenre, setsearchGenre] = useState('')
   const [actualTitle, setActualTitle] = useState('')
   const [url_set, setUrl] = useState(API_URL)
+  const fetchData = useFetchData()
 
 
   function getTitle() {
     const strurl = url_set.split("/",5)[4]
       setActualTitle(strurl)
     
+  }
+  function getMovies(url) {
+    fetchData(url).then((data) => setMovieList(data.results))
   }
 
   function handleGenreID(searchGenre) {
@@ -40,12 +45,7 @@ function List() {
     setUrl(API_URL)
   }
   useEffect(() => {
-    fetch(url_set)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovieList(data.results)
-        console.log(data.results)
-      })
+    getMovies(url_set)
       getTitle()
   }, [url_set])
 
