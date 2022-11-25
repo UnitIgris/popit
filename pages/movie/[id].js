@@ -5,7 +5,7 @@ import { BsStarFill, BsStar } from 'react-icons/bs'
 
 function Movieid() {
   const [starRate, setStarRate] = useState(null)
-  const [amountStar, setAmountStar] = useState(0)
+  const [amountStar, setAmountStar] = useState('0%')
   const [actors, setActors] = useState(null)
   const [movieInfo, setMovieInfo] = useState(null)
   const [movieID, setMovieID] = useState('')
@@ -21,7 +21,7 @@ function Movieid() {
     fetchData(url).then((data) => setStarRate(data.vote_average))
 
     const starPercentage = starRate * 10
-    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}`
+    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`
     setAmountStar(starPercentageRounded)
   }
 
@@ -42,7 +42,7 @@ function Movieid() {
       getSingleMovie(URL_INFO)
       getStar(URL_INFO)
     }
-  }, [movieID])
+  }, [movieID, starRate])
   useEffect(() => {
     getId()
   })
@@ -51,7 +51,6 @@ function Movieid() {
     fetchData(url).then((data) => setMovieInfo(data))
   }
 
-  console.log(movieInfo)
   if ((actors == null || undefined, movieInfo == null || undefined)) {
     return <p>Loading data's movie...</p>
   } else
@@ -74,29 +73,16 @@ function Movieid() {
           borderRadius="1rem"
           maxW="80rem"
           bg="rgba(255,255,255,0.8)"
-          margin="0 auto"
-        >{amountStar}
+          margin="2rem auto "
+          padding="2rem"
+        >
           <Box margin="2rem">
             <Heading size="2xl">{movieInfo.title}</Heading>{' '}
             <Text fontSize="1.3rem" marginBottom="1rem">
               {movieInfo.tagline}
             </Text>
           </Box>
-          <Box  display="inline-block" position="relative">
-            NO
-          
-            <Box
-              position="absolute"
-              top="0"
-              left="0"
-              white-space="nowrap"
-              overflow="hidden"
-              width="70%"
-            >
-              YES 
-            
-            </Box>
-          </Box>
+          <Box></Box>
           <Box
             display="flex"
             alignItems="center"
@@ -151,6 +137,33 @@ function Movieid() {
               </Text>
             </Box>
 
+            <Box
+              transform=" rotate(-90deg)"
+              display="inline-block"
+              position="relative"
+            >
+              <BsStar />
+              <BsStar />
+              <BsStar />
+              <BsStar />
+              <BsStar />
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                white-space="nowrap"
+                overflow="hidden"
+                h={amountStar}
+                color="black"
+              >
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+              </Box>
+            </Box>
+            <Text>Notation: </Text>
             <Image
               borderRadius="1rem"
               position="relative"

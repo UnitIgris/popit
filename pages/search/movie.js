@@ -1,18 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  Box,
-  Input,
-  Image,
-  Text,
-  SimpleGrid,
-  Card,
-  Heading,
-  CardBody,
-  Stack,
-  InputGroup,
-  InputRightElement,
-  Icon,
-} from '@chakra-ui/react'
+import { Box, Input, Text, Heading } from '@chakra-ui/react'
 import Cards from '../../libs/components/Card'
 import Genre from '../../libs/components/Genre'
 import useFetchData from '../../libs/hook/useFetchData'
@@ -28,11 +15,9 @@ function List() {
   const [url_set, setUrl] = useState(API_URL)
   const fetchData = useFetchData()
 
-
   function getTitle() {
-    const strurl = url_set.split("/",5)[4]
-      setActualTitle(strurl)
-    
+    const strurl = url_set.split('/', 5)[4]
+    setActualTitle(strurl)
   }
   function getMovies(url) {
     fetchData(url).then((data) => setMovieList(data.results))
@@ -46,11 +31,10 @@ function List() {
   }
   useEffect(() => {
     getMovies(url_set)
-      getTitle()
+    getTitle()
   }, [url_set])
 
-  function checkSubmit(e)  {
-    //if(movieSearch !== undefined)
+  function checkSubmit(e) {
     if (e && e.key == 'Enter') {
       const API_URL =
         BASE_URL + 'search/movie?' + API_KEY + '&query=' + movieSearch
@@ -60,7 +44,7 @@ function List() {
 
   return (
     <Box
-    bg="white"
+      bg="white"
       display="flex"
       flexDirection="row"
       position="relative"
@@ -127,7 +111,7 @@ function List() {
         alignItems="center"
         justifyContent="center"
       >
-        <Box  margin="1.5rem" display="flex" w="100%" flexDirection="column">
+        <Box margin="1.5rem" display="flex" w="100%" flexDirection="column">
           <Heading>{actualTitle.toUpperCase()}</Heading>
           <Box
             display="grid"
